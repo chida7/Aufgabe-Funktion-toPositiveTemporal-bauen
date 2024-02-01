@@ -8,28 +8,34 @@ type PositiveTemporal =
   | { minutes: string };
 
 const toPositiveTemporal = (amount: string, unit: string, nonNegative?: boolean | string): PositiveTemporal | string => {
-  const minimized = new RegExp(`${unit}`, 'i');
+  let minimized = unit.toLowerCase();
   if (amount === '0' && !(nonNegative === true || nonNegative === 'nonNegative')){
     return `amount zero in toPositiveTemporal is invalid, unit: ${unit}`;
   }
   let temporal: PositiveTemporal ;
-  switch (true) {
-    case minimized.test('d') || minimized.test('day'):
+  switch (minimized) {
+    case 'd' :
+    case 'day':
       temporal = { days: amount } as PositiveTemporal;
       break;
-    case minimized.test('w') || minimized.test('week'):
+    case 'w' :
+    case 'week':
       temporal = { weeks: amount } as PositiveTemporal;
       break;
-    case minimized.test('m') || minimized.test('month'):
+    case 'm' :
+    case 'month':
       temporal = { months: amount } as PositiveTemporal;
       break;
-    case minimized.test('y') || minimized.test('year'):
+    case 'y':
+    case 'year':
       temporal = { years: amount } as PositiveTemporal;
       break;
-    case minimized.test('h') || minimized.test('hour'):
+    case 'h':
+    case 'hour':
       temporal = { hours: amount } as PositiveTemporal;
       break;
-    case minimized.test('min') || minimized.test('minute'):
+    case 'min':
+    case 'minute':
       temporal = { minutes: amount } as PositiveTemporal;
       break;
     default:
